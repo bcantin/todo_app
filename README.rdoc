@@ -1,0 +1,22 @@
+== TODO APP
+
+A command line todo creator for the TODO web app.
+
+Instructions:
+
+    - install and configure the TODO rails app
+    - install this app
+    - setup the config.yml for this app
+    - update your paths (~/bin/todo_app)
+
+USAGE:
+in any directory
+
+    todo your happy message
+
+## upcoming changes (for those bawler to use this right now...)
+- change the command line to accept arguements
+
+    -m 'message'
+    -p 'the project' (defaults to the current path || 'general') 
+    -h help (this stuff)
