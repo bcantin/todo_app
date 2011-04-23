@@ -1,0 +1,10 @@
+TODO APP
+
+A command line todo creator for the TODO web app.
+
+Instructions:
+
+- install and configure the TODO rails app
+- install this app
+- setup the config.yml for this app
+- update your paths (~/bin/todo_app)

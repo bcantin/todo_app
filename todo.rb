@@ -7,7 +7,7 @@ require 'yaml'
 require 'sqlite3'
 require 'pathname'
 
-config_file = Pathname.new(__FILE__).dirname + '.todo.yml'
+config_file = Pathname.new(__FILE__).dirname + 'config.yml'
 
 dbconfig = YAML::load(File.open(config_file))
 ActiveRecord::Base.establish_connection(dbconfig)
