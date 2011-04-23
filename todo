@@ -1,6 +1,33 @@
 #!/usr/bin/env ruby
 
 require 'rubygems'
+require 'optparse'
+
+options = {:project => nil}
+opts = OptionParser.new do |opts|
+  opts.banner = "Usage: todo -m 'message'"
+
+  opts.on( '-m', '--message "message"', 'The task message' ) do |message|
+    options[:message] = message
+  end
+
+  opts.on( '-p', '--project "project"', "The project in the database.  Defaults to the current path or GENERAL") do |project|
+    options[:project] = project
+  end
+
+  # help message
+  opts.on( '-h', '--help', 'Display this screen' ) do
+    puts opts
+    exit
+  end
+end
+
+opts.parse!
+unless options[:message]
+  puts "Usage: todo -m 'message'"
+  exit
+end
+
 require 'active_record'
 require 'yaml'
 # require 'logger'
@@ -8,24 +35,20 @@ require 'sqlite3'
 require 'pathname'
 
 config_file = Pathname.new(__FILE__).dirname + 'config.yml'
-
-dbconfig = YAML::load(File.open(config_file))
+dbconfig    = YAML::load(File.open(config_file))
 ActiveRecord::Base.establish_connection(dbconfig)
 # ActiveRecord::Base.logger = Logger.new(STDERR)
 
 class Project < ActiveRecord::Base
   has_many :tasks
 end
-
 class Task < ActiveRecord::Base
   belongs_to :project
 end
 
-project_name = Pathname.new(Dir.pwd).basename.to_s
+project_name = options[:project] || Pathname.new(Dir.pwd).basename.to_s
 unless project = Project.where('title like ?', project_name).first
-  project = Project.find_or_create_by_title('general')
+  project = Project.find_or_create_by_title('General')
 end
 
-task = *ARGV
-
-project.tasks.create(:description => task.join(' '))
+project.tasks.create(:description => options[:message])

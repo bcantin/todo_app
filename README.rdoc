@@ -9,14 +9,12 @@ Instructions:
     - setup the config.yml for this app
     - update your paths (~/bin/todo_app)
 
-USAGE:
-in any directory
+USAGE: in any directory (if you updated your path)
 
-    todo your happy message
+    todo -m 'your happy message'
 
-## upcoming changes (for those bawler to use this right now...)
-- change the command line to accept arguements
+And there is help
 
-    -m 'message'
-    -p 'the project' (defaults to the current path || 'general') 
-    -h help (this stuff)
+    todo -h
+    
+enjoy!
