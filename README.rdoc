@@ -7,7 +7,7 @@ Instructions:
     - install and configure the TODO rails app
     - install this app
     - setup the config.yml for this app
-    - update your paths (~/bin/todo_app)
+    - update your paths (wherever you put this app, eg: ~/bin/todo_app)
 
 USAGE: in any directory (if you updated your path)
 
