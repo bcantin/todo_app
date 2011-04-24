@@ -3,7 +3,7 @@
 require 'rubygems'
 require 'optparse'
 
-options = {:project => nil}
+options = {:project => nil, :verbose => false}
 opts = OptionParser.new do |opts|
   opts.banner = "Usage: todo -m 'message'"
 
@@ -15,6 +15,10 @@ opts = OptionParser.new do |opts|
     options[:project] = project
   end
 
+  opts.on( '-v', '--verbose', "Verbose mode") do |project|
+    options[:verbose] = true
+  end
+  
   # help message
   opts.on( '-h', '--help', 'Display this screen' ) do
     puts opts
@@ -30,14 +34,14 @@ end
 
 require 'active_record'
 require 'yaml'
-# require 'logger'
+require 'logger' if options[:verbose]
 require 'sqlite3'
 require 'pathname'
 
 config_file = Pathname.new(__FILE__).dirname + 'config.yml'
 dbconfig    = YAML::load(File.open(config_file))
 ActiveRecord::Base.establish_connection(dbconfig)
-# ActiveRecord::Base.logger = Logger.new(STDERR)
+ActiveRecord::Base.logger = Logger.new(STDERR) if options[:verbose]
 
 class Project < ActiveRecord::Base
   has_many :tasks
